@@ -69,3 +69,4 @@ export const POST = async (
     return new NextResponse("Internam Error", { status: 500 });
   }
 };
+export const dynamic = "force-dynamic";

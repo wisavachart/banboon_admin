@@ -61,3 +61,4 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json({ message: err }, { status: 500 });
   }
 };
+export const dynamic = "force-dynamic";
