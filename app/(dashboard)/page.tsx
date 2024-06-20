@@ -1,15 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { getTotalCategory, getTotalProducts } from "@/lib/actions";
 
 import { CircleDollarSign, ShoppingBag } from "lucide-react";
-export default async function Home() {
-  const totalCategory = await getTotalCategory().then(
-    (data) => data.totalCategory
-  );
-  const totalProducts = await getTotalProducts().then(
-    (data) => data.totalProducts
-  );
+export default function Home() {
   return (
     <div className="px-8 py-10">
       <p className="text-heading2-bold">Dashboard</p>
@@ -22,7 +15,7 @@ export default async function Home() {
             <CircleDollarSign className="max-sm:hidden" />
           </CardHeader>
           <CardContent>
-            <p className="font-bold text-5xl">{totalCategory}</p>
+            <p className="font-bold text-5xl"></p>
           </CardContent>
         </Card>
 
@@ -32,7 +25,7 @@ export default async function Home() {
             <ShoppingBag className="max-sm:hidden" />
           </CardHeader>
           <CardContent>
-            <p className="font-bold text-5xl">{totalProducts}</p>
+            <p className="font-bold text-5xl"></p>
           </CardContent>
         </Card>
       </div>
