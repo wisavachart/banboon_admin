@@ -1,8 +1,12 @@
+"use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import useGetCategories from "@/hook/useGetCategories";
 
 import { CircleDollarSign, ShoppingBag } from "lucide-react";
 export default function Home() {
+  const { categoriesLenght } = useGetCategories();
+  console.log(categoriesLenght);
   return (
     <div className="px-8 py-10">
       <p className="text-heading2-bold">Dashboard</p>
@@ -15,7 +19,7 @@ export default function Home() {
             <CircleDollarSign className="max-sm:hidden" />
           </CardHeader>
           <CardContent>
-            <p className="font-bold text-5xl"></p>
+            <p className="font-bold text-5xl">{categoriesLenght}</p>
           </CardContent>
         </Card>
 
