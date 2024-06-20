@@ -34,7 +34,7 @@ const NoproductModal = () => {
             Can not create product.
           </AlertDialogTitle>
           <AlertDialogDescription>
-            You don't have any category to create product. Please create
+            You don&apos;t have any category to create product. Please create
             category first.
           </AlertDialogDescription>
         </AlertDialogHeader>
