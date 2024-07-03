@@ -1,5 +1,6 @@
 "use client";
 import ProductFrom from "@/components/products/ProductFrom";
+import ProductService from "@/services/ProductService";
 import { useEffect, useState } from "react";
 
 const ProductDetail = ({ params }: { params: { productsId: string } }) => {
@@ -8,10 +9,8 @@ const ProductDetail = ({ params }: { params: { productsId: string } }) => {
 
   const getProductDetail = async () => {
     try {
-      const res = await fetch(`/api/products/${params.productsId}`, {
-        method: "GET",
-      });
-      const data = await res.json();
+      const data = await ProductService.getProductByID(params.productsId);
+      // const data = await res.json();
       setProducDetail(data);
       setLoading(false);
     } catch (er) {
