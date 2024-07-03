@@ -48,17 +48,47 @@ export const POST = async (req: NextRequest) => {
 };
 
 // GET ALL Product
+// export const GET = async (req: NextRequest) => {
+//   try {
+//     await connectionToDb();
+//     const product = await Product.find()
+//       .sort({ createdAt: "desc" })
+//       .populate({ path: "category", model: Category });
+
+//     return NextResponse.json(product, { status: 200 });
+//   } catch (err) {
+//     console.log("[products_GET]", err);
+//     return NextResponse.json({ message: err }, { status: 500 });
+//   }
+// };
+
+// GET ALL Product with max and new avialble
 export const GET = async (req: NextRequest) => {
   try {
     await connectionToDb();
-    const product = await Product.find()
+
+    const url = new URL(req.url);
+    const newproduct = url.searchParams.get("new");
+
+    if (newproduct === "newarrival") {
+      const newarrilvalproduct = await Product.find({
+        isNewArrival: true,
+      })
+        .sort({ createdAt: -1 })
+        .exec();
+
+      return NextResponse.json(newarrilvalproduct, { status: 200 });
+    }
+
+    const allproduct = await Product.find()
       .sort({ createdAt: "desc" })
       .populate({ path: "category", model: Category });
 
-    return NextResponse.json(product, { status: 200 });
+    return NextResponse.json(allproduct, { status: 200 });
   } catch (err) {
     console.log("[products_GET]", err);
     return NextResponse.json({ message: err }, { status: 500 });
   }
 };
+
 export const dynamic = "force-dynamic";
