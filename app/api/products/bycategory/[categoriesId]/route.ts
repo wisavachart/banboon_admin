@@ -10,14 +10,26 @@ export const GET = async (
 ) => {
   try {
     await connectionToDb();
-
+    const url = new URL(req.url);
+    const search = url.searchParams.get("search");
     const productBycategory = await Product.find({
       category: params.categoriesId,
     })
       .sort({ createdAt: -1 })
       .exec();
 
-    return NextResponse.json(productBycategory, { status: 200 });
+    let productBycateogoryResponse = productBycategory;
+    //For Search
+    if (search) {
+      productBycateogoryResponse = productBycateogoryResponse.filter(
+        (product) => {
+          const searchableText = `${product.title}`;
+          return searchableText.toLowerCase().includes(search.toLowerCase());
+        }
+      );
+    }
+
+    return NextResponse.json(productBycateogoryResponse, { status: 200 });
   } catch (err) {
     return new NextResponse("Internam Error", { status: 500 });
   }
