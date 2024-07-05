@@ -26,6 +26,7 @@ const Products = () => {
         method: "GET",
       });
       const data = await res.json();
+      console.log(data);
       setProducts(data);
       setLoading(false);
     } catch (err) {

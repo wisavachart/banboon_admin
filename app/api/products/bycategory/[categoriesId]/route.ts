@@ -1,3 +1,4 @@
+import Category from "@/lib/models/Category";
 import Product from "@/lib/models/Product";
 import { connectionToDb } from "@/lib/mongoDb";
 import { NextRequest, NextResponse } from "next/server";
@@ -30,6 +31,10 @@ export const GET = async (
     }
     // Fetch the paginated results based on the search query
     const productBycategory = await Product.find(searchQuery)
+      .populate({
+        path: "category",
+        model: Category,
+      })
       .skip((page - 1) * perPage)
       .limit(perPage)
       .exec();

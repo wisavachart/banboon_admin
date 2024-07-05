@@ -15,6 +15,7 @@ type ProductsType = {
   price: number;
   statusPublish: boolean;
   isNewArrival: boolean;
+  isBestSeller: boolean;
   createAt: Date;
   updateAt: Date;
 };

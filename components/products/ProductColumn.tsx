@@ -30,6 +30,13 @@ export const columns: ColumnDef<ProductsType>[] = [
     ),
   },
   {
+    accessorKey: "isNewArrival",
+    header: "StatusNewProduct",
+    cell: ({ row }) => (
+      <p>{row.original.isNewArrival ? "สินค้ามาใหม่" : "-"}</p>
+    ),
+  },
+  {
     id: "actions",
     cell: ({ row }) => <Delete item="product" id={row.original._id} />,
   },

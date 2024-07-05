@@ -63,6 +63,7 @@ export const POST = async (req: NextRequest) => {
 // };
 
 // GET ALL Product with max and new avialble
+//API = localhost:3001/api/products/
 export const GET = async (req: NextRequest) => {
   try {
     await connectionToDb();
@@ -75,6 +76,7 @@ export const GET = async (req: NextRequest) => {
         isNewArrival: true,
       })
         .sort({ createdAt: -1 })
+        .populate({ path: "category", model: Category })
         .exec();
 
       return NextResponse.json(newarrilvalproduct, { status: 200 });
