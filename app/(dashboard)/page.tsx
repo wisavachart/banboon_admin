@@ -8,7 +8,7 @@ import { Shapes, Tag } from "lucide-react";
 export default function Home() {
   const { categoriesLenght } = useGetCategories();
   const { proDuctLenght } = useGetProducts();
-  console.log(categoriesLenght);
+  // console.log(categoriesLenght);
   return (
     <div className="px-8 py-12">
       <p className="font-bold text-2xl">Dashboard</p>

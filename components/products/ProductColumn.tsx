@@ -32,9 +32,17 @@ export const columns: ColumnDef<ProductsType>[] = [
   {
     accessorKey: "isNewArrival",
     header: "StatusNewProduct",
-    cell: ({ row }) => (
-      <p>{row.original.isNewArrival ? "สินค้ามาใหม่" : "-"}</p>
-    ),
+    cell: ({ row }) =>
+      row.original.isNewArrival ? (
+        <p className="bg-red-600 text-white text-center">สินค้ามาใหม่</p>
+      ) : (
+        <p className="text-center">-</p>
+      ),
+  },
+  {
+    accessorKey: "isBestSeller",
+    header: "StatusBestSeller",
+    cell: ({ row }) => <p>{row.original.isBestSeller ? "สินค้าขายดี" : "-"}</p>,
   },
   {
     id: "actions",

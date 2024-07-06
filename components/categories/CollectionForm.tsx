@@ -20,9 +20,10 @@ import ImageUpload from "../custom ui/ImageUpload";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Textarea } from "../ui/textarea";
+
 const formSchema = z.object({
   title: z.string().min(2).max(50),
-  description: z.string().min(2).max(500).trim(),
+  description: z.string(),
   image: z.string(),
 });
 
@@ -53,10 +54,10 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initData }) => {
   };
   const onSubmit = async (value: z.infer<typeof formSchema>) => {
     // console.log(value);
-    if (value.image == null) {
-      console.log("Null");
-      return;
-    }
+    // if (value.image == null) {
+    //   console.log("Null");
+    //   return;
+    // }
     try {
       const service = initData
         ? CategoryService.upDateCategory(value, initData._id)
@@ -92,10 +93,10 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initData }) => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>ชื่อหมวดหมู่สินค้า</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Title"
+                    placeholder="หมวดหมู่สินค้า..."
                     {...field}
                     onKeyDown={handleKeyPress}
                   />
@@ -109,7 +110,10 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initData }) => {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>description</FormLabel>
+                <FormLabel>
+                  คำอธิบายหมวดหมู่สินค้า
+                  <span className="text-red-600">**ไม่จำเป็นต้องกรอก</span>
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Title"
@@ -127,7 +131,9 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initData }) => {
             name="image"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Image</FormLabel>
+                <FormLabel>
+                  Image <span className="text-red-600">**ไม่จำเป็นต้องอัพ</span>
+                </FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value ? [field.value] : []}

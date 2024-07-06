@@ -10,14 +10,16 @@ export const POST = async (req: NextRequest) => {
     const {
       title,
       description,
+      imageCover,
       media,
       category,
       price,
       statusPublish,
       isNewArrival,
+      isBestSeller,
     } = await req.json();
 
-    if (!title || !description || !media || !category || !price) {
+    if (!title || !description || !category || !price) {
       return new NextResponse("Not enought data to create a product", {
         status: 500,
       });
@@ -26,11 +28,13 @@ export const POST = async (req: NextRequest) => {
     const newProduct = await Product.create({
       title,
       description,
+      imageCover,
       media,
       category,
       price,
       statusPublish,
       isNewArrival,
+      isBestSeller,
     });
     await newProduct.save();
 

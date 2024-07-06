@@ -7,7 +7,7 @@ type CreateCategory = {
 class CategoryService {
   //CREATE CATEGORY
   async createCategory(value: CreateCategory) {
-    console.log("เริ่ม Create");
+    console.log("เริ่ม Create Category");
     try {
       const res = await fetch("/api/categories", {
         method: "POST",

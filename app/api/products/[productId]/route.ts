@@ -89,11 +89,13 @@ export const POST = async (
     const {
       title,
       description,
+      imageCover,
       media,
       category,
       price,
       statusPublish,
       isNewArrival,
+      isBestSeller,
     } = await req.json();
 
     if (!title || !description || !media || !category || !price) {
@@ -121,11 +123,13 @@ export const POST = async (
       {
         title,
         description,
+        imageCover,
         media,
         category,
         price,
         statusPublish,
         isNewArrival,
+        isBestSeller,
       },
       { new: true }
     ).populate({ path: "category", model: Category });

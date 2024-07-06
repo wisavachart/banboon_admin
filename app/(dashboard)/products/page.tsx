@@ -15,7 +15,7 @@ const Products = () => {
   const [products, setProducts] = useState<ProductsType[]>([]);
   const { categoriesLenght } = useGetCategories();
 
-  console.log(categoriesLenght);
+  // console.log(categoriesLenght);
 
   function OncreateProduct() {
     router.push("/products/new");
@@ -26,7 +26,7 @@ const Products = () => {
         method: "GET",
       });
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       setProducts(data);
       setLoading(false);
     } catch (err) {

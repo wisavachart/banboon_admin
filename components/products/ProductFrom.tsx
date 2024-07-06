@@ -22,6 +22,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
+import ImageCoverUpload from "../custom ui/ImageCoverUpload";
 import ImageUpload from "../custom ui/ImageUpload";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
@@ -40,8 +41,10 @@ const formSchema = z.object({
   category: z.string().min(1, { message: "Category is required" }).trim(),
 
   price: z.coerce.number().min(0.1),
+  imageCover: z.string(),
   statusPublish: z.boolean({ required_error: "Status is required" }),
   isNewArrival: z.boolean({ required_error: "Status is required" }),
+  isBestSeller: z.boolean({ required_error: "Status is required" }),
 });
 
 interface ProductFormProps {
@@ -51,15 +54,12 @@ interface ProductFormProps {
 const ProductFrom = ({ initData }: ProductFormProps) => {
   const { categories } = useGetCategories();
   const [imgProduct, setImgproduct] = useState<string[]>([]);
-
   useEffect(() => {
     if (initData?.media) {
       setImgproduct(initData.media);
     }
   }, []);
-
   const router = useRouter();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initData
@@ -69,10 +69,18 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
           description: "",
           category: "",
           price: 20,
+          imageCover: "",
           statusPublish: true,
           isNewArrival: false,
+          isBestSeller: false,
         },
   });
+  const [isNewArrival, setIsNewArrival] = useState(
+    String(form.getValues("isNewArrival"))
+  );
+  const [isBestSeller, setIsBestSeller] = useState(
+    String(form.getValues("isBestSeller"))
+  );
 
   const handleKeyPress = (
     e:
@@ -87,7 +95,6 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
   ///SUBMIT
   const onSubmit = async (value: z.infer<typeof formSchema>) => {
     const productData = { ...value, media: imgProduct };
-    // console.log(productData);
 
     if (initData) {
       try {
@@ -97,7 +104,7 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
         });
         if (res.ok) {
           const data = await res.json();
-          console.log(data);
+          // console.log(data);
           window.location.href = "/products";
           toast.success("Update product Suceess");
         }
@@ -126,7 +133,10 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
 
   return (
     <div className="px-10 py-4 lg:py-12">
-      <p className="font-bold text-2xl">Create Products</p>
+      <p className="font-bold text-2xl">
+        {initData ? "Update Products" : "Create Products"}
+      </p>
+
       <Separator className="my-4 bg-grey-1" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
@@ -165,8 +175,31 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
               </FormItem>
             )}
           />
-
+          <FormField
+            control={form.control}
+            name="imageCover"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <h1>ภาพหน้าปกสินค้า</h1>
+                </FormLabel>
+                <FormControl>
+                  <ImageCoverUpload
+                    value={field.value ? [field.value] : []}
+                    onChange={(url) => {
+                      field.onChange(url);
+                    }}
+                    onRemove={() => {
+                      field.onChange("");
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <div>
+            <h1>อัพโหลดอัลบั้มภาพสินค้า</h1>
             <ImageUpload
               value={imgProduct}
               onChange={(imgurl) => setImgproduct((prev) => [...prev, imgurl])}
@@ -249,31 +282,67 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
               )}
             />
             {/* /// Status NewArrival Select */}
-            <FormField
-              control={form.control}
-              name="isNewArrival"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>New Arrival ?</FormLabel>
-                  <Select
-                    onValueChange={(val) => field.onChange(val === "true")}
-                    defaultValue={String(field.value)}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select product status" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent className="bg-white">
-                      <SelectItem value="true">enable</SelectItem>
-                      <SelectItem className="bg-red-50" value="false">
-                        disable
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {isBestSeller === "false" && (
+              <FormField
+                control={form.control}
+                name="isNewArrival"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>สินค้าใหม่ ?</FormLabel>
+                    <Select
+                      onValueChange={(val) => {
+                        field.onChange(val === "true");
+                        setIsNewArrival(val);
+                      }}
+                      defaultValue={String(field.value)}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select product status" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-white">
+                        <SelectItem value="true">enable</SelectItem>
+                        <SelectItem className="bg-red-50" value="false">
+                          disable
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {/* /// Status Besseller Select */}
+            {isNewArrival === "false" && (
+              <FormField
+                control={form.control}
+                name="isBestSeller"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>สินค้าขายดี ?</FormLabel>
+                    <Select
+                      onValueChange={(val) => {
+                        field.onChange(val === "true");
+                        setIsBestSeller(val);
+                      }}
+                      defaultValue={String(field.value)}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select product status" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-white">
+                        <SelectItem value="true">enable</SelectItem>
+                        <SelectItem className="bg-red-50" value="false">
+                          disable
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </div>
           <div className="flex gap-5">
             <Button type="submit" className=" text-white">

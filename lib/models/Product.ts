@@ -10,6 +10,9 @@ const productSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    imageCover: {
+      type: String,
+    },
     media: [String],
     category: {
       type: mongoose.Schema.Types.ObjectId,
@@ -26,6 +29,10 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     isNewArrival: {
+      type: Boolean,
+      required: true,
+    },
+    isBestSeller: {
       type: Boolean,
       required: true,
     },

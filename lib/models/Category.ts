@@ -9,7 +9,6 @@ const categorySchema = new mongoose.Schema({
   description: String,
   image: {
     type: String,
-    required: true,
   },
   products: [
     {
