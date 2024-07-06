@@ -74,16 +74,73 @@ export const GET = async (req: NextRequest) => {
 
     const url = new URL(req.url);
     const newproduct = url.searchParams.get("new");
+    const search = url.searchParams.get("search");
+    const page = parseInt(url.searchParams.get("page") || "1", 10);
+    const perPage = 12;
 
     if (newproduct === "newarrival") {
-      const newarrilvalproduct = await Product.find({
-        isNewArrival: true,
-      })
+      const baseQuery: { [key: string]: any } = { isNewArrival: true };
+      const totalCount = await Product.countDocuments(baseQuery);
+      const searchQuery = { ...baseQuery };
+      if (search) {
+        const searchWords = search
+          .split(" ")
+          .map((word) => word.trim())
+          .filter((word) => word);
+        const regexPattern = searchWords
+          .map((word) => `(?=.*${word})`)
+          .join("");
+        searchQuery["title"] = { $regex: regexPattern, $options: "i" };
+      }
+
+      const newarrilvalproduct = await Product.find(searchQuery)
         .sort({ createdAt: -1 })
         .populate({ path: "category", model: Category })
+        .skip((page - 1) * perPage)
+        .limit(perPage)
         .exec();
+      const searchCount = search
+        ? await Product.countDocuments(searchQuery)
+        : totalCount;
+      const totalPages = Math.ceil(searchCount / perPage);
 
-      return NextResponse.json(newarrilvalproduct, { status: 200 });
+      return NextResponse.json(
+        { newarrilvalproduct, page, totalPages, totalCount: searchCount },
+        { status: 200 }
+      );
+    }
+
+    // BESTSELLER isBestSeller: true,
+    if (newproduct === "bestseller") {
+      const baseQuery: { [key: string]: any } = { isBestSeller: true };
+      const totalCount = await Product.countDocuments(baseQuery);
+      const searchQuery = { ...baseQuery };
+      if (search) {
+        const searchWords = search
+          .split(" ")
+          .map((word) => word.trim())
+          .filter((word) => word);
+        const regexPattern = searchWords
+          .map((word) => `(?=.*${word})`)
+          .join("");
+        searchQuery["title"] = { $regex: regexPattern, $options: "i" };
+      }
+
+      const bestSellerProduct = await Product.find(searchQuery)
+        .sort({ createdAt: -1 })
+        .populate({ path: "category", model: Category })
+        .skip((page - 1) * perPage)
+        .limit(perPage)
+        .exec();
+      const searchCount = search
+        ? await Product.countDocuments(searchQuery)
+        : totalCount;
+      const totalPages = Math.ceil(searchCount / perPage);
+
+      return NextResponse.json(
+        { bestSellerProduct, page, totalPages, totalCount: searchCount },
+        { status: 200 }
+      );
     }
 
     const allproduct = await Product.find()
