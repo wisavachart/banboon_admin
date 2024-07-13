@@ -5,7 +5,7 @@ const useGetCategories = () => {
   const [categories, setCategories] = React.useState([]);
   const [categoriesLenght, setcategoriesLenght] = useState<number | null>(null);
 
-  const [loading, setloading] = useState(false);
+  const [loadingg, setloading] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -27,7 +27,7 @@ const useGetCategories = () => {
     setcategoriesLenght(categories.length);
   }, [categories]);
 
-  return { categories, loading, categoriesLenght };
+  return { categories, loadingg, categoriesLenght };
 };
 
 export default useGetCategories;

@@ -11,13 +11,13 @@ import { useRouter } from "next/navigation";
 //หน้าColections
 const Categories = () => {
   const router = useRouter();
-  const { categories, loading } = useGetCategories();
+  const { categories, loadingg } = useGetCategories();
 
   return (
     <div className="  px-10 py-4 lg:py-11">
       <div className="flex items-center justify-between">
         <p className="font-bold text-2xl">
-          {loading ? "loading..." : "Categories"}
+          {loadingg ? "loading..." : "Categories"}
         </p>
         <Button
           className="text-white"

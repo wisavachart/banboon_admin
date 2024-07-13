@@ -16,7 +16,8 @@ export const columns: ColumnDef<ProductsType>[] = [
   {
     accessorKey: "category",
     header: "Category",
-    cell: ({ row }) => row.original.category.title,
+    cell: ({ row }) =>
+      row.original.category ? row.original.category.title : "No Category",
   },
   {
     accessorKey: "price",

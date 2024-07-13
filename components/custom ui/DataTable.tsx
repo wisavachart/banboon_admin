@@ -35,7 +35,7 @@ export function DataTable<TData, TValue>({
   searchKey,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
+  console.log(searchKey);
   const table = useReactTable({
     data,
     columns,
@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="py-5">
+    <div className="py-2">
       <div className="flex items-center py-4">
         <Input
           placeholder="Search..."
