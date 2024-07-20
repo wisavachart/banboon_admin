@@ -63,7 +63,10 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initData
-      ? { ...initData, category: initData.category._id }
+      ? {
+          ...initData,
+          category: initData.category ? initData.category._id : "",
+        }
       : {
           title: "",
           description: "",
