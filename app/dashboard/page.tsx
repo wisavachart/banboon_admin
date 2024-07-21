@@ -1,16 +1,12 @@
 // "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import useGetCategories from "@/hook/useGetCategories";
-import useGetProducts from "@/hook/useGetProducts";
+
 import { getSession } from "@/lib/getSession";
 
 import { Shapes, Tag } from "lucide-react";
 import { redirect } from "next/navigation";
-export const Dashboard = async () => {
-  // const { categoriesLenght } = useGetCategories();
-  // const { proDuctLenght } = useGetProducts();
-  // console.log(categoriesLenght);
+const Dashboard = async () => {
   const session = await getSession();
   const user = session?.user;
   if (!user) redirect("/login");
