@@ -7,7 +7,7 @@ import { getSession } from "@/lib/getSession";
 
 import { Shapes, Tag } from "lucide-react";
 import { redirect } from "next/navigation";
-export const Home = async () => {
+export const page = async () => {
   // const { categoriesLenght } = useGetCategories();
   // const { proDuctLenght } = useGetProducts();
   // console.log(categoriesLenght);
@@ -44,4 +44,4 @@ export const Home = async () => {
   );
 };
 
-export default Home;
+export default page;
