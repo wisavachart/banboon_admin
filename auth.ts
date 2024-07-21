@@ -14,7 +14,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const password = credentials.password as string | undefined;
 
         if (
-          email !== "baanboon@gmail.com" &&
+          email !== "baanboon@gmail.com" ||
           password !== "baanboonadmin1212312121"
         ) {
           throw new CredentialsSignin("Wrong Credentials Naja");

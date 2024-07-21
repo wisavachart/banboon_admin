@@ -6,7 +6,7 @@ const adminLogin = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  if (email !== process.env.USERNAME && password !== process.env.PASSWORD) {
+  if (email !== process.env.USERNAME || password !== process.env.PASSWORD) {
     return;
   }
 
