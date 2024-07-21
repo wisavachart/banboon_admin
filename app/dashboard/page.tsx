@@ -1,14 +1,19 @@
-"use client";
+// "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import useGetCategories from "@/hook/useGetCategories";
 import useGetProducts from "@/hook/useGetProducts";
+import { getSession } from "@/lib/getSession";
 
 import { Shapes, Tag } from "lucide-react";
-export default function Home() {
-  const { categoriesLenght } = useGetCategories();
-  const { proDuctLenght } = useGetProducts();
+import { redirect } from "next/navigation";
+export const Home = async () => {
+  // const { categoriesLenght } = useGetCategories();
+  // const { proDuctLenght } = useGetProducts();
   // console.log(categoriesLenght);
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) redirect("/login");
   return (
     <div className="px-8 py-12">
       <p className="font-bold text-2xl">Dashboard</p>
@@ -21,7 +26,7 @@ export default function Home() {
             <Shapes className="max-sm:hidden" />
           </CardHeader>
           <CardContent>
-            <p className="font-bold text-5xl">{categoriesLenght}</p>
+            {/* <p className="font-bold text-5xl">{categoriesLenght}</p> */}
           </CardContent>
         </Card>
 
@@ -31,10 +36,12 @@ export default function Home() {
             <Tag className="max-sm:hidden" />
           </CardHeader>
           <CardContent>
-            <p className="font-bold text-5xl">{proDuctLenght}</p>
+            {/* <p className="font-bold text-5xl">{proDuctLenght}</p> */}
           </CardContent>
         </Card>
       </div>
     </div>
   );
-}
+};
+
+export default Home;

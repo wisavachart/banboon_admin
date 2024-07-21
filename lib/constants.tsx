@@ -16,9 +16,4 @@ export const navLinks = [
     icon: <Tag />,
     label: "Products",
   },
-  {
-    url: "/login",
-    icon: <LogIn />,
-    label: "Login",
-  },
 ];

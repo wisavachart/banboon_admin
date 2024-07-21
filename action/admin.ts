@@ -6,6 +6,7 @@ const adminLogin = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
+  console.log(email, password);
   if (email !== process.env.USERNAME || password !== process.env.PASSWORD) {
     return;
   }
@@ -19,7 +20,6 @@ const adminLogin = async (formData: FormData) => {
     });
   } catch (error) {
     const someError = error as CredentialsSignin;
-    console.log("================ Login ไม่ได้");
     if (someError) {
       redirect("/login");
     }
