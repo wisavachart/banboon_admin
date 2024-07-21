@@ -7,7 +7,7 @@ import { getSession } from "@/lib/getSession";
 
 import { Shapes, Tag } from "lucide-react";
 import { redirect } from "next/navigation";
-export const page = async () => {
+export const Dashboard = async () => {
   // const { categoriesLenght } = useGetCategories();
   // const { proDuctLenght } = useGetProducts();
   // console.log(categoriesLenght);
@@ -44,4 +44,4 @@ export const page = async () => {
   );
 };
 
-export default page;
+export default Dashboard;
