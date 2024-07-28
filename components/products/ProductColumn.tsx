@@ -8,7 +8,9 @@ export const columns: ColumnDef<ProductsType>[] = [
     accessorKey: "title",
     header: "Title",
     cell: ({ row }) => (
-      <Link href={`/products/${row.original._id}`} className="hover:text-red-1">
+      <Link
+        href={`/dashboard/products/${row.original._id}`}
+        className="hover:text-red-1">
         {row.original.title}
       </Link>
     ),

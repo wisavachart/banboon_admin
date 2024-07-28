@@ -108,7 +108,7 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
         if (res.ok) {
           const data = await res.json();
           // console.log(data);
-          window.location.href = "/products";
+          window.location.href = "/dashboard/products";
           toast.success("Update product Suceess");
         }
       } catch (err) {
