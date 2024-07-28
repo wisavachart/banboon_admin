@@ -14,7 +14,7 @@ export const GET = async (
     const url = new URL(req.url);
     const search = url.searchParams.get("search");
     const page = parseInt(url.searchParams.get("page") || "1", 10);
-    const perPage = 12;
+    const perPage = 32;
 
     const baseQuery: { [key: string]: any } = { category: params.categoriesId };
     const totalCount = await Product.countDocuments(baseQuery);

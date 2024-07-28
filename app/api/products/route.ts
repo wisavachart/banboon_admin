@@ -76,7 +76,7 @@ export const GET = async (req: NextRequest) => {
     const newproduct = url.searchParams.get("new");
     const search = url.searchParams.get("search");
     const page = parseInt(url.searchParams.get("page") || "1", 10);
-    const perPage = 12;
+    const perPage = 32;
 
     if (newproduct === "newarrival") {
       const baseQuery: { [key: string]: any } = { isNewArrival: true };
