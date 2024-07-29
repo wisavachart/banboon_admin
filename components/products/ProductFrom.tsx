@@ -125,7 +125,7 @@ const ProductFrom = ({ initData }: ProductFormProps) => {
         body: JSON.stringify(productData),
       });
       if (res.ok) {
-        window.location.href = "/products";
+        window.location.href = "/dashboard/products";
         toast.success("Create product Suceess");
       }
     } catch (err) {

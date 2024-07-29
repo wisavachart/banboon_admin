@@ -65,8 +65,8 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initData }) => {
       const res = await service;
       if (res) {
         toast.success(`Catagory ${initData ? "updated" : "Created"}`);
-        window.location.href = "/categories";
-        router.push("/categories");
+        window.location.href = "/dashboard/categories";
+        router.push("/dashboard/categories");
       }
     } catch (err) {
       toast.error("Something went");
