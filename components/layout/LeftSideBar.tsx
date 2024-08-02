@@ -10,7 +10,7 @@ const LeftSideBar = async () => {
   const user = session?.user;
 
   return (
-    <div className="h-screen left-0 top-0 sticky z-50 p-10 flex flex-col gap-16 bg-banboon shadow-xl max-lg:hidden">
+    <div className="rounded-xl h-fit left-0 top-0 sticky z-50 p-10 flex flex-col gap-16 bg-red-600 shadow-xl max-lg:hidden mx-5 my-5 ">
       <Image
         src="/banboon_logo.png"
         alt="logo"
@@ -25,7 +25,7 @@ const LeftSideBar = async () => {
             <Link
               href={link.url}
               key={link.label}
-              className="flex gap-4 text-body-medium text-black">
+              className="flex gap-4 text-body-medium text-white">
               {link.icon} <p>{link.label}</p>
             </Link>
           ))}
@@ -45,7 +45,7 @@ const LeftSideBar = async () => {
             "use server";
             await signOut();
           }}>
-          <div className="flex gap-4 text-body-medium items-center cursor-pointer">
+          <div className="flex gap-4 text-body-medium items-center cursor-pointer text-white">
             <LogOut />
             <button type="submit">Logout</button>
           </div>
