@@ -10,7 +10,7 @@ const LeftSideBar = async () => {
   const user = session?.user;
 
   return (
-    <div className="h-screen left-0 top-0 sticky p-10 flex flex-col gap-16 bg-banboon shadow-xl max-lg:hidden">
+    <div className="h-screen left-0 top-0 sticky z-50 p-10 flex flex-col gap-16 bg-banboon shadow-xl max-lg:hidden">
       <Image
         src="/banboon_logo.png"
         alt="logo"
