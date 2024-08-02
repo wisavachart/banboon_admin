@@ -2,6 +2,8 @@
 import { DataTable } from "@/components/custom ui/DataTable";
 import NoproductModal from "@/components/custom ui/NoproductModal";
 import { columns } from "@/components/products/ProductColumn";
+import { columnsProducts } from "@/components/productsDataTable/components/columnsProducts";
+import { DataTableProducts } from "@/components/productsDataTable/components/data-table-products";
 import { Button } from "@/components/ui/button";
 import useGetCategories from "@/hook/useGetCategories";
 import { Separator } from "@radix-ui/react-separator";
@@ -32,7 +34,7 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="px-10 py-4 lg:py-11">
+    <div className="px-10 py-4 lg:py-11 -z-40">
       <div className="flex items-center justify-between">
         <p className="font-bold text-2xl">
           {loading ? "loading..." : "All products"}
@@ -53,7 +55,10 @@ const Products = () => {
       {loadingg ? (
         <p>Loading</p>
       ) : (
-        <DataTable columns={columns} data={products} searchKey={"title"} />
+        // WORK TABLE !!
+        // <DataTable columns={columns} data={products} searchKey="title"/>
+        <DataTableProducts columns={columnsProducts} data={products} />
+        // NEWS TABLE !!
       )}
     </div>
   );
