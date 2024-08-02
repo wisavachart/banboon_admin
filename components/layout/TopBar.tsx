@@ -12,7 +12,7 @@ const TopBar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="sticky top-0 z-20 w-full flex justify-between items-center px-8 py-4 bg-banboon shadow-xl lg:hidden">
+    <div className="mx-3 my-3 rounded-lg sticky top-0 z-20 w-fit flex gap-10 justify-between items-center px-8 py-4 bg-red-600 shadow-xl lg:hidden">
       <Image
         src="/banboon_logo.png"
         alt="logo"
@@ -36,6 +36,7 @@ const TopBar = () => {
 
       <div className="relative flex gap-4 items-center">
         <Menu
+          color="white"
           className="cursor-pointer md:hidden"
           onClick={() => setDropdownMenu(!dropdownMenu)}
         />
