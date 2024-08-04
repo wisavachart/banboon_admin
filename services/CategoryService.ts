@@ -29,7 +29,10 @@ class CategoryService {
         throw new Error("Failed to fetch categories");
       }
       const data = await res.json();
-      return data;
+      const sortedData = data.sort((a: CategoryType, b: CategoryType) =>
+        a.title.localeCompare(b.title)
+      );
+      return sortedData;
     } catch (err) {
       throw err;
     }
