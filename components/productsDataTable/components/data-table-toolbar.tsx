@@ -5,6 +5,7 @@ import { Table } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "./data-table-view-options";
 import FetchFilterCategoryBtn from "./fetch-filter-btn";
+import FilterDisplayBox from "./fetch-filter-display-box";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -28,6 +29,7 @@ export function DataTableToolbar<TData>({
       <div className="ml-3">
         <FetchFilterCategoryBtn />
       </div>
+      <FilterDisplayBox />
       <DataTableViewOptions table={table} />
     </div>
   );

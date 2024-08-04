@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
-import { DotsHorizontalIcon, MixerHorizontalIcon } from "@radix-ui/react-icons";
+import React from "react";
+import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,9 +16,14 @@ import useGetCategories from "@/hook/useGetCategories";
 
 const FetchFilterCategoryBtn = () => {
   const { categories } = useGetCategories();
+
   const setCateGory = (id: string) => {
     alert(id);
   };
+  const setToAll = () => {
+    alert("all");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -41,7 +46,9 @@ const FetchFilterCategoryBtn = () => {
           ))}
 
         <DropdownMenuItem>
-          <span className="text-green-600">All</span>
+          <span className="text-green-600" onClick={setToAll}>
+            All
+          </span>
           <DropdownMenuShortcut>⌘</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
