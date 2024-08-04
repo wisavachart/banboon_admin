@@ -34,7 +34,7 @@ const Delete = ({ item, id }: DeleteProps) => {
           : CategoryService.deleteCategory(id);
       const res = await itemTypeTodelete;
       if (res) {
-        window.location.href = `/${
+        window.location.href = `/dashboard/${
           item === "product" ? "products" : "categories"
         }`;
         toast.success("Categories Delete");

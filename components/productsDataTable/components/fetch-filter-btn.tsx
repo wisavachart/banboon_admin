@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { DotsHorizontalIcon, MixerHorizontalIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import useGetCategories from "@/hook/useGetCategories";
+
 const FetchFilterCategoryBtn = () => {
+  const { categories } = useGetCategories();
+  const setCateGory = (id: string) => {
+    alert(id);
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -23,26 +29,17 @@ const FetchFilterCategoryBtn = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>เสริมความงามและสุขภาพ</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>ของทำบุญ</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>อุปกรณ์สัตว์เลี้ยง</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>อุปกรณ์ทำความสะอาด</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>ของใช้ส่วนตัวและกิฟต์ชอป</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>อิเล็กทรอนิกส์</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>เครื่องมือช่าง</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>เครื่องเขียนและอุปกรณ์สำนักงาน</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>เครื่องครัว</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>ของใช้ในบ้าน</DropdownMenuItem>
-        <DropdownMenuSeparator />
+        {categories
+          ?.sort((a: CategoryType, b: CategoryType) =>
+            a.title.localeCompare(b.title)
+          )
+          .map((cate: CategoryType, index) => (
+            <div key={index} onClick={() => setCateGory(cate._id)}>
+              <DropdownMenuItem>{cate.title}</DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </div>
+          ))}
+
         <DropdownMenuItem>
           <span className="text-green-600">All</span>
           <DropdownMenuShortcut>⌘</DropdownMenuShortcut>
