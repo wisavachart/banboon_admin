@@ -78,7 +78,7 @@ export function DataTableProducts<TData, TValue>({
         {/* EXCEL BTN */}
         <div
           onClick={onExClick}
-          className="bg-green-600 px-3 py-3 cursor-pointer rounded-md items-center flex gap-1 text-white hover:bg-green-400">
+          className="bg-green-600 px-3 py-2 cursor-pointer rounded-md items-center flex gap-1 text-white hover:bg-green-400">
           <SheetIcon size="16px" />
           <span className="text-[14px]">Export to Excel</span>
         </div>

@@ -36,8 +36,8 @@ const Products = () => {
   return (
     <div className="px-10 py-4 lg:py-11 -z-40">
       <div className="flex items-center justify-between">
-        <p className="font-bold text-2xl">
-          {loading ? "loading..." : "All products"}
+        <p className="font-bold text-5xl mb-3">
+          {loading ? "loading..." : "All Product"}
         </p>
         {categoriesLenght == 0 ? (
           <NoproductModal />
