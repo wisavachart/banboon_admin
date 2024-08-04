@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import {
   ColumnDef,
@@ -27,6 +26,8 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
+import GetDataToExcel from "@/lib/xlxs";
+import { SheetIcon } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -67,10 +68,23 @@ export function DataTableProducts<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     initialState: { pagination: { pageSize: 50 } },
   });
+  const onExClick = async () => {
+    await GetDataToExcel.getAllproduct();
+  };
 
   return (
     <div className="space-y-4">
+      <div className="w-full  flex justify-start">
+        {/* EXCEL BTN */}
+        <div
+          onClick={onExClick}
+          className="bg-green-600 px-3 py-3 cursor-pointer rounded-md items-center flex gap-1 text-white hover:bg-green-400">
+          <SheetIcon size="16px" />
+          <span className="text-[14px]">Export to Excel</span>
+        </div>
+      </div>
       <DataTableToolbar table={table} />
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>

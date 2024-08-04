@@ -1,7 +1,7 @@
 "use client";
-import { DataTable } from "@/components/custom ui/DataTable";
+
 import NoproductModal from "@/components/custom ui/NoproductModal";
-import { columns } from "@/components/products/ProductColumn";
+
 import { columnsProducts } from "@/components/productsDataTable/components/columnsProducts";
 import { DataTableProducts } from "@/components/productsDataTable/components/data-table-products";
 import { Button } from "@/components/ui/button";
@@ -10,8 +10,6 @@ import { Separator } from "@radix-ui/react-separator";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import GetDataToExcel from "@/lib/xlxs";
-import { get } from "http";
 
 const Products = () => {
   const [loading, setLoading] = useState(true);
@@ -35,18 +33,9 @@ const Products = () => {
     getProdeucts();
   }, []);
 
-  const onExClick = async () => {
-    await GetDataToExcel.getAllproduct();
-  };
-
   return (
     <div className="px-10 py-4 lg:py-11 -z-40">
       <div className="flex items-center justify-between">
-        <button
-          className="bg-green-600 px-3 py-2 rounded-md text-white"
-          onClick={onExClick}>
-          Export To Excel
-        </button>
         <p className="font-bold text-2xl">
           {loading ? "loading..." : "All products"}
         </p>
@@ -66,10 +55,7 @@ const Products = () => {
       {loadingg ? (
         <p>Loading</p>
       ) : (
-        // WORK TABLE !!
-        // <DataTable columns={columns} data={products} searchKey="title"/>
         <DataTableProducts columns={columnsProducts} data={products} />
-        // NEWS TABLE !!
       )}
     </div>
   );
