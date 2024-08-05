@@ -6,6 +6,7 @@ import { columnsProducts } from "@/components/productsDataTable/components/colum
 import { DataTableProducts } from "@/components/productsDataTable/components/data-table-products";
 import { Button } from "@/components/ui/button";
 import useGetCategories from "@/hook/useGetCategories";
+import useFilterState from "@/lib/global-state-manage";
 import { Separator } from "@radix-ui/react-separator";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -15,23 +16,34 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<ProductsType[]>([]);
   const { categoriesLenght, loadingg } = useGetCategories();
+  const { categoryID, isFillterOn } = useFilterState();
 
-  const getProdeucts = async () => {
+  const getProducts = async (isOn: boolean, id: string) => {
     try {
-      const res = await fetch("/api/products", {
-        method: "GET",
-      });
-      const data = await res.json();
-      // console.log(data);
-      setProducts(data);
-      setLoading(false);
+      if (isOn) {
+        const res = await fetch(`/api/products?category=${id}`, {
+          method: "GET",
+        });
+        const data = await res.json();
+        setProducts(data);
+        setLoading(false);
+      } else {
+        const res = await fetch("/api/products", {
+          method: "GET",
+        });
+        const data = await res.json();
+
+        setProducts(data);
+        setLoading(false);
+      }
     } catch (err) {
       console.log("[products_GET]", err);
     }
   };
+
   useEffect(() => {
-    getProdeucts();
-  }, []);
+    getProducts(isFillterOn, categoryID);
+  }, [isFillterOn, categoryID]);
 
   return (
     <div className="px-10 py-4 lg:py-11 -z-40">

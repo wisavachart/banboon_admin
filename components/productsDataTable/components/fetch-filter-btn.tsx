@@ -13,15 +13,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import useGetCategories from "@/hook/useGetCategories";
+import useFilterState from "@/lib/global-state-manage";
 
 const FetchFilterCategoryBtn = () => {
   const { categories } = useGetCategories();
+  const { setFilterOff, setFilterOn, setCategoryID } = useFilterState();
 
-  const setCateGory = (id: string) => {
-    alert(id);
-  };
-  const setToAll = () => {
-    alert("all");
+  const setCateGory = (id: string, name: string) => {
+    setFilterOn();
+    setCategoryID(id, name);
   };
 
   return (
@@ -39,16 +39,14 @@ const FetchFilterCategoryBtn = () => {
             a.title.localeCompare(b.title)
           )
           .map((cate: CategoryType, index) => (
-            <div key={index} onClick={() => setCateGory(cate._id)}>
+            <div key={index} onClick={() => setCateGory(cate._id, cate.title)}>
               <DropdownMenuItem>{cate.title}</DropdownMenuItem>
               <DropdownMenuSeparator />
             </div>
           ))}
 
-        <DropdownMenuItem>
-          <span className="text-green-600" onClick={setToAll}>
-            All
-          </span>
+        <DropdownMenuItem onClick={setFilterOff}>
+          <span className="text-green-600">All</span>
           <DropdownMenuShortcut>⌘</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -73,6 +73,7 @@ export const GET = async (req: NextRequest) => {
     await connectionToDb();
 
     const url = new URL(req.url);
+    const cateFilter = url.searchParams.get("category");
     const newproduct = url.searchParams.get("new");
     const search = url.searchParams.get("search");
     const page = parseInt(url.searchParams.get("page") || "1", 10);
@@ -141,6 +142,14 @@ export const GET = async (req: NextRequest) => {
         { bestSellerProduct, page, totalPages, totalCount: searchCount },
         { status: 200 }
       );
+    }
+
+    if (cateFilter) {
+      const categoryQuery = { category: cateFilter };
+      const allproduct = await Product.find(categoryQuery)
+        .sort({ createdAt: "desc" })
+        .populate({ path: "category", model: Category });
+      return NextResponse.json(allproduct, { status: 200 });
     }
 
     const allproduct = await Product.find()

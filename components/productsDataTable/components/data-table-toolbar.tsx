@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "./data-table-view-options";
 import FetchFilterCategoryBtn from "./fetch-filter-btn";
 import FilterDisplayBox from "./fetch-filter-display-box";
+import useFilterState from "@/lib/global-state-manage";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -14,6 +15,7 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
+  const { isFillterOn } = useFilterState();
   return (
     <div className="flex items-center justify-between ">
       <div className="flex max-w-[500px] items-center space-x-2">
@@ -29,7 +31,7 @@ export function DataTableToolbar<TData>({
       <div className="ml-3">
         <FetchFilterCategoryBtn />
       </div>
-      <FilterDisplayBox />
+      {isFillterOn && <FilterDisplayBox />}
       <DataTableViewOptions table={table} />
     </div>
   );
