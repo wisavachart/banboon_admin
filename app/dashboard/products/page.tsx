@@ -7,6 +7,7 @@ import { DataTableProducts } from "@/components/productsDataTable/components/dat
 import { Button } from "@/components/ui/button";
 import useGetCategories from "@/hook/useGetCategories";
 import useFilterState from "@/lib/global-state-manage";
+import ProductService from "@/services/ProductService";
 import { Separator } from "@radix-ui/react-separator";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -19,20 +20,14 @@ const Products = () => {
   const { categoryID, isFillterOn } = useFilterState();
 
   const getProducts = async (isOn: boolean, id: string) => {
+    setLoading(true);
     try {
       if (isOn) {
-        const res = await fetch(`/api/products?category=${id}`, {
-          method: "GET",
-        });
-        const data = await res.json();
+        const data = await ProductService.getAllProductbyCategoryFilter(id);
         setProducts(data);
         setLoading(false);
       } else {
-        const res = await fetch("/api/products", {
-          method: "GET",
-        });
-        const data = await res.json();
-
+        const data = await ProductService.getAllproduct();
         setProducts(data);
         setLoading(false);
       }
