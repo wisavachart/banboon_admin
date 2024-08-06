@@ -8,6 +8,8 @@ import { DataTable } from "../custom ui/DataTable";
 
 import { columns } from "../categories/CollectionColumn";
 import Link from "next/link";
+import { DataTableCategory } from "../dataTable/table/data-table-category";
+import { columnsCatagory } from "../dataTable/table/columnsCategory";
 
 const CategoryMainpage = () => {
   const { categories, loadingg } = useGetCategories();
@@ -25,7 +27,8 @@ const CategoryMainpage = () => {
         </Link>
       </div>
       <Separator className="bg-grey-1 my-4" />
-      <DataTable columns={columns} data={categories} searchKey="title" />
+      {/* <DataTable columns={columns} data={categories} searchKey="title" /> */}
+      <DataTableCategory columns={columnsCatagory} data={categories} />
     </div>
   );
 };

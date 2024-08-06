@@ -14,8 +14,7 @@ import {
 
 import Link from "next/link";
 import ProductService from "@/services/ProductService";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import CategoryService from "@/services/CategoryService";
 
 interface WithType {
   _id: string;
@@ -24,16 +23,16 @@ interface WithType {
 interface DataTableRowActionsProps<TData extends WithType> {
   row: Row<TData>;
 }
-export function DataTableRowActions<TData extends WithType>({
+export function DataTableRowActionsCategory<TData extends WithType>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const onDelete = async (title: string, id: string) => {
     if (confirm(`คุณต้องการจะลบสินค้า ${title} ใช่หรือไม่ ?`)) {
       try {
-        const itemTypeTodelete = ProductService.deleteCategory(id);
+        const itemTypeTodelete = CategoryService.deleteCategory(id);
         const res = await itemTypeTodelete;
         if (res) {
-          window.location.href = "/dashboard/products";
+          window.location.href = "/dashboard/categories";
         }
       } catch (err) {
         console.log(err);
@@ -52,7 +51,7 @@ export function DataTableRowActions<TData extends WithType>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <Link href={`/dashboard/products/${row.original._id}`}>
+        <Link href={`/dashboard/categories/${row.original._id}`}>
           <DropdownMenuItem>Edit</DropdownMenuItem>
         </Link>
 

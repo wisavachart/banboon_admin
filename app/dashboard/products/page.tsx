@@ -2,8 +2,8 @@
 
 import NoproductModal from "@/components/custom ui/NoproductModal";
 
-import { columnsProducts } from "@/components/dataTable/components/columnsProducts";
-import { DataTableProducts } from "@/components/dataTable/components/data-table-products";
+import { columnsProducts } from "@/components/dataTable/table/columnsProducts";
+import { DataTableProducts } from "@/components/dataTable//table/data-table-products";
 import { Button } from "@/components/ui/button";
 import useGetCategories from "@/hook/useGetCategories";
 import useFilterState from "@/lib/global-state-manage";
