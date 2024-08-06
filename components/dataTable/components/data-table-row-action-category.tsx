@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import Link from "next/link";
-import ProductService from "@/services/ProductService";
 import CategoryService from "@/services/CategoryService";
 
 interface WithType {
@@ -27,7 +26,7 @@ export function DataTableRowActionsCategory<TData extends WithType>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const onDelete = async (title: string, id: string) => {
-    if (confirm(`คุณต้องการจะลบสินค้า ${title} ใช่หรือไม่ ?`)) {
+    if (confirm(`คุณต้องการจะลบหมวดหมู่สินค้า ${title} ใช่หรือไม่ ?`)) {
       try {
         const itemTypeTodelete = CategoryService.deleteCategory(id);
         const res = await itemTypeTodelete;
