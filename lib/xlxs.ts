@@ -9,6 +9,7 @@ type ProductsForExcelSheet = {
   _id: string;
   category: CategoryForExelSheet;
   title: string;
+  description: string;
   price: number;
 };
 interface GetDataToExcel {
@@ -37,6 +38,7 @@ class GetDataToExcel {
           รหัสสินค้า: item._id,
           ประเภทสินค้า: item.category?.title,
           ชื่อสินค้า: item.title,
+          คำบรรยายสินค้า: item.description,
           ราคา: item.price,
         }));
         return this.MakeExcellSheet(this.dataExcel);
