@@ -144,12 +144,29 @@ export const GET = async (req: NextRequest) => {
       );
     }
 
+    //?category=669dbe84278b41583ab4a512
     if (cateFilter) {
       const categoryQuery = { category: cateFilter };
       const allproduct = await Product.find(categoryQuery)
         .sort({ createdAt: "desc" })
         .populate({ path: "category", model: Category });
       return NextResponse.json(allproduct, { status: 200 });
+    }
+
+    //For home search ?search=น้ำยา
+    if (search) {
+      const searchQuery: { [key: string]: any } = { search: search };
+      const searchWords = search
+        .split(" ")
+        .map((word) => word.trim())
+        .filter((word) => word);
+      const regexPattern = searchWords.map((word) => `(?=.*${word})`).join("");
+      searchQuery["title"] = { $regex: regexPattern, $options: "i" };
+      const homesearchProduct = await Product.find(searchQuery)
+        .sort({ createdAt: -1 })
+        .populate({ path: "category", model: Category })
+        .exec();
+      return NextResponse.json(homesearchProduct, { status: 200 });
     }
 
     const allproduct = await Product.find()
