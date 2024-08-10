@@ -130,6 +130,7 @@ export const POST = async (
         statusPublish,
         isNewArrival,
         isBestSeller,
+        updatedAt: Date.now(),
       },
       { new: true }
     ).populate({ path: "category", model: Category });

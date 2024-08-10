@@ -153,7 +153,7 @@ export const GET = async (req: NextRequest) => {
     }
 
     const allproduct = await Product.find()
-      .sort({ createdAt: "desc" })
+      .sort({ updatedAt: "desc" })
       .populate({ path: "category", model: Category });
 
     return NextResponse.json(allproduct, { status: 200 });
