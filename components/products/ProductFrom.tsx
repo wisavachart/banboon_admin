@@ -32,7 +32,7 @@ const formSchema = z.object({
   title: z
     .string()
     .min(2, { message: "Title must contain at least 2 character(s)" })
-    .max(100),
+    .max(300),
   description: z
     .string()
     .min(2, { message: "Description must contain at least 2 character(s)" })
